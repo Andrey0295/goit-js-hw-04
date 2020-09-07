@@ -1,43 +1,35 @@
-// const counts = { a: 1, b: 2, c: 10 };
-// console.log(counts);
+// Расставь отсутствующие this в методах объекта account.
 
-// let totalCounts = 0;
-// const keys = Object.keys(counts);
-// console.log(keys);
+// В комментариях показаны операции с объектом и ожидаемые результаты.
 
-// for (const key of keys) {
-//   console.log(counts[key]);
-//   totalCounts += counts[key];
-// }
-// console.log(totalCounts);
-
-const countTotalSalary = function (employees) {
-  'use strict';
-  // Write code under this line
-  let bigestMoney = 0;
-  const employeesKeys = Object.keys(employees);
-  // console.log(employeesKeys);
-
-  for (const key of employeesKeys) {
-    // console.log(employees[key]);
-    bigestMoney += employees[key];
-  }
-  return bigestMoney;
+const account = {
+  owner: 'Mango',
+  balance: 24000,
+  discount: 0.1,
+  orders: ['order-1', 'order-2', 'order-3'],
+  changeDiscount(value) {
+    this.discount = value; // Write code in this line
+  },
+  showOrders() {
+    return this.orders; // Write code in this line
+  },
+  addOrder(cost, order) {
+    this.balance -= cost; // Write code in this line
+    this.orders.push(order); // Write code in this line
+  },
 };
+const copyAccount = Object.assign({}, account);
+copyAccount.orders = [...account.orders];
+// копируем для автотестов ссылочные типы
 
-// Объекты и ожидаемый результат
-const developers = {
-  mango: 300,
-  poly: 250,
-  alfred: 450,
-};
-console.log(countTotalSalary(developers));
-// 1000
+account.changeDiscount(0.15);
+console.log(account.discount); // 0.15
 
-const supports = {
-  kiwi: 200,
-  lux: 150,
-  chelsy: 150,
-};
-console.log(countTotalSalary(supports));
-// 500
+console.log(account.showOrders());
+// ['order-1', 'order-2', 'order-3']
+
+account.addOrder(5000, 'order-4');
+console.log(account.balance); // 19000
+
+console.log(account.showOrders());
+// ['order-1', 'order-2', 'order-3', 'order-4']
